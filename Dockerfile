@@ -10,6 +10,19 @@
 # implied. See the License for the specific language governing permissions and limitations under the
 # License.
 
-FROM ubuntu:latest
+# FROM ubuntu:latest
 
-RUN echo "Hello world"
+# RUN echo "Hello world"
+
+FROM node:12
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "bin/serve" ]
