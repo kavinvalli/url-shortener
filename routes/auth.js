@@ -21,7 +21,7 @@ router.get(
 		console.log(req.isAuthenticated())
 		console.log(req.user)
 		console.log(req.session)
-		res.render("/");
+		res.redirect("/");
 	}
 );
 
