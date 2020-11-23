@@ -1,0 +1,31 @@
+html
+  head
+    title Kavin's Url Shortener
+    link(href='/static/css/style.css' rel='stylesheet')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+body
+  nav
+    .nav-wrapper
+      a.brand-logo.left(href="https://www.kavin.me") Kavin.me
+      ul#nav-mobile.right
+        li
+          if isAuthenticated
+            a.waves-effect.waves-grey.btn-flat.teal.white-text(href='/auth/logout') Logout
+          else
+            a.waves-effect.waves-grey.btn-flat.teal.white-text(href='/auth/google') Login
+  .container.center-align
+    if error
+      p.red-text #{error}
+    //- p #{isAuthenticated}
+    if isAuthenticated
+      form(action="/urls/create" method="POST")
+        input(type="text" placeholder="Long URL" id="longUrl" name="longUrl" value=longUrl || "")
+        input(type="text" placeholder="Slug" id="slug" name="slug" value=slug || "")
+        button.btn.pink(type="submit") Submit
+        if urlObject
+          .card.blue-grey.darken-1
+            .card-content.white-text
+              span.card-title #{urlObject.shortUrl}
+              p #{urlObject.longUrl}
